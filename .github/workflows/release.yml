@@ -23,8 +23,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
           source-url: https://nuget.pkg.github.com/NowaLone/index.json
-      env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
@@ -33,3 +31,5 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Push
       run: dotnet nuget push src/**.nupkg -k $NUGET_AUTH_TOKEN -s https://nuget.pkg.github.com/NowaLone/index.json
+      env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
