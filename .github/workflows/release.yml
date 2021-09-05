@@ -34,10 +34,10 @@ jobs:
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
-      - run: dotnet build src/*.csproj
+      - run: dotnet build src/**.csproj
       
-      - run: dotnet pack --configuration Release src/*.csproj
+      - run: dotnet pack --configuration Release src/**.csproj
       
-      - run: dotnet nuget push src/*/bin/Release/*.nupkg
+      - run: dotnet nuget push src/**/bin/Release/**.nupkg
 
 
