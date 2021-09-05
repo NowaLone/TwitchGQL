@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{09BF8BFB-59E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{6E72F5C2-66A5-4D6C-80B5-8904C88B000D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchGQL.Client.Tests", "tests\TwitchGQL.Client.Tests\TwitchGQL.Client.Tests.csproj", "{6EC17751-A680-414C-9EA1-E1D63C47D9B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{BED187B3-C46A-4121-A833-B42A49E58C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BED187B3-C46A-4121-A833-B42A49E58C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BED187B3-C46A-4121-A833-B42A49E58C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC17751-A680-414C-9EA1-E1D63C47D9B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC17751-A680-414C-9EA1-E1D63C47D9B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC17751-A680-414C-9EA1-E1D63C47D9B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC17751-A680-414C-9EA1-E1D63C47D9B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8895FC44-A6AB-4FD5-B757-9F475058B02E} = {09BF8BFB-59E8-4470-BE6F-03AC1C692922}
 		{BED187B3-C46A-4121-A833-B42A49E58C33} = {09BF8BFB-59E8-4470-BE6F-03AC1C692922}
+		{6EC17751-A680-414C-9EA1-E1D63C47D9B1} = {6E72F5C2-66A5-4D6C-80B5-8904C88B000D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9AF7C40A-16AA-4248-A01F-042FC71F01E1}
