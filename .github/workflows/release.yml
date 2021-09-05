@@ -29,4 +29,4 @@ jobs:
     - name: Pack NuGet
       run: dotnet pack --configuration Release
     - name: Push
-      run: dotnet nuget push src/**.nupkg
+      run: dotnet nuget push src/**.nupkg -k $NUGET_AUTH_TOKEN -s https://nuget.pkg.github.com/NowaLone/index.json
