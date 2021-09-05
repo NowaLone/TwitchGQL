@@ -28,16 +28,23 @@ jobs:
         with:
           fetch-depth: 0
       
-      - uses: actions/setup-dotnet@v1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
         with:
           source-url: https://nuget.pkg.github.com/NowaLone/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
       
-      - run: dotnet build src/**.csproj
+      - name: Build TwitchGQL.Client
+        run: dotnet build src/TwitchGQL.Client/TwitchGQL.Client.csproj
+        
+      - name: Build TwitchGQL.Models
+        run: dotnet build src/TwitchGQL.Models/TwitchGQL.Models.csproj
       
-      - run: dotnet pack --configuration Release src/**.csproj
+      - name: Pack NuGet
+        run: dotnet pack --configuration Release src/**.csproj
       
-      - run: dotnet nuget push src/**/bin/Release/**.nupkg
+      - name: Push NuGet
+        run: dotnet nuget push src/**/bin/Release/**.nupkg
 
 
