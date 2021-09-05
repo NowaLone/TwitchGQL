@@ -41,8 +41,11 @@ jobs:
       - name: Build TwitchGQL.Models
         run: dotnet build src/TwitchGQL.Models/TwitchGQL.Models.csproj
       
-      - name: Pack NuGet
-        run: dotnet pack --configuration Release src/**.csproj
+      - name: Pack TwitchGQL.Client
+        run: dotnet pack --configuration Release src/TwitchGQL.Client/TwitchGQL.Client.csproj
+        
+      - name: Pack TwitchGQL.Models
+        run: dotnet pack --configuration Release src/TwitchGQL.Models/TwitchGQL.Models.csproj
       
       - name: Push NuGet
         run: dotnet nuget push src/**/bin/Release/**.nupkg
