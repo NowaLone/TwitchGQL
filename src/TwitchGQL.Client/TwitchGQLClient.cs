@@ -22,7 +22,7 @@ namespace TwitchGQL.Client
 
         #region Constructors
 
-        public TwitchGQLClient(ILogger logger = default) : base("https://gql.twitch.tv/gql", new SystemTextJsonSerializer())
+        public TwitchGQLClient(string endPoint = "https://gql.twitch.tv/gql", ILogger logger = default) : base(endPoint, new SystemTextJsonSerializer())
         {
             this.logger = logger ?? Microsoft.Extensions.Logging.Abstractions.NullLogger<TwitchGQLClient>.Instance;
         }
@@ -55,28 +55,21 @@ namespace TwitchGQL.Client
 
         #region Methods
 
-        public async Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default)
+        public Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default)
         {
-            logger.LogInformation("Sending {OperationName} request.", request.OperationName);
-
-            GraphQLResponse<Models.Responses.ViewerCardModLogsMessagesBySender.Data> result = await SendQueryAsync<Models.Responses.ViewerCardModLogsMessagesBySender.Data>(request, cancellationToken).ConfigureAwait(false);
-
-            if (result.Errors.Length > 0)
-            {
-                foreach (GraphQLError error in result.Errors)
-                {
-                    logger.LogError(error.Message);
-                }
-            }
-
-            return result.Data;
+            return SendQueryAsync<Models.Responses.ViewerCardModLogsMessagesBySender.Data>(request, cancellationToken);
         }
 
-        public async Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default)
+        public Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<Models.Responses.PlaybackAccessToken.Data>(request, cancellationToken);
+        }
+
+        public new async Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default)
         {
             logger.LogInformation("Sending {OperationName} request.", request.OperationName);
 
-            GraphQLResponse<Models.Responses.PlaybackAccessToken.Data> result = await SendQueryAsync<Models.Responses.PlaybackAccessToken.Data>(request, cancellationToken).ConfigureAwait(false);
+            GraphQLResponse<TResult> result = await base.SendQueryAsync<TResult>(request, cancellationToken).ConfigureAwait(false);
 
             if (result.Errors?.Length > 0)
             {

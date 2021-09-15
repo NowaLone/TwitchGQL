@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using GraphQL;
+using System.Threading;
 using System.Threading.Tasks;
 using TwitchGQL.Models.Requests.Persisted;
 using TwitchGQL.Models.Requests.Templates;
@@ -19,6 +20,8 @@ namespace TwitchGQL.Client
         Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default);
 
         Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default);
+
+        Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default);
 
         #endregion Methods
     }
