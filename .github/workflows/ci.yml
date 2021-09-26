@@ -20,8 +20,8 @@ jobs:
       uses: actions/setup-dotnet@v1
     - name: Add User Secrets
       run: |
-        dotnet user-secrets set "ClientId" "${{ secrets.TEST_CLIENT_ID }}"
-        dotnet user-secrets set "Authorization" "${{ secrets.TEST_AUTHORIZATION }}"
+        dotnet user-secrets set "ClientId" "${{ secrets.TEST_CLIENT_ID }}" --project ./tests/TwitchGQL.Client.Tests
+        dotnet user-secrets set "Authorization" "${{ secrets.TEST_AUTHORIZATION }}" --project ./tests/TwitchGQL.Client.Tests
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
