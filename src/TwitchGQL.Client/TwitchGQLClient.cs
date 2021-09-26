@@ -55,16 +55,6 @@ namespace TwitchGQL.Client
 
         #region Methods
 
-        public Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default)
-        {
-            return SendQueryAsync<Models.Responses.ViewerCardModLogsMessagesBySender.Data>(request, cancellationToken);
-        }
-
-        public Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default)
-        {
-            return SendQueryAsync<Models.Responses.PlaybackAccessToken.Data>(request, cancellationToken);
-        }
-
         public new async Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default)
         {
             logger.LogInformation("Sending {OperationName} request.", request.OperationName);
@@ -80,6 +70,26 @@ namespace TwitchGQL.Client
             }
 
             return result.Data;
+        }
+
+        public Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<Models.Responses.ViewerCardModLogsMessagesBySender.Data>(request, cancellationToken);
+        }
+
+        public Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<Models.Responses.PlaybackAccessToken.Data>(request, cancellationToken);
+        }
+
+        public Task<Models.Responses.FollowButton_FollowUser.Data> SendQueryAsync(FollowButton_FollowUserRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<Models.Responses.FollowButton_FollowUser.Data>(request, cancellationToken);
+        }
+
+        public Task<Models.Responses.FollowButton_UnfollowUser.Data> SendQueryAsync(FollowButton_UnfollowUserRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<Models.Responses.FollowButton_UnfollowUser.Data>(request, cancellationToken);
         }
 
         #endregion Methods

@@ -17,11 +17,15 @@ namespace TwitchGQL.Client
 
         #region Methods
 
+        Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default);
+
         Task<Models.Responses.ViewerCardModLogsMessagesBySender.Data> SendQueryAsync(ViewerCardModLogsMessagesBySenderRequest request, CancellationToken cancellationToken = default);
 
         Task<Models.Responses.PlaybackAccessToken.Data> SendQueryAsync(PlaybackAccessTokenRequest request, CancellationToken cancellationToken = default);
 
-        Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default);
+        Task<Models.Responses.FollowButton_FollowUser.Data> SendQueryAsync(FollowButton_FollowUserRequest request, CancellationToken cancellationToken = default);
+
+        Task<Models.Responses.FollowButton_UnfollowUser.Data> SendQueryAsync(FollowButton_UnfollowUserRequest request, CancellationToken cancellationToken = default);
 
         #endregion Methods
     }
