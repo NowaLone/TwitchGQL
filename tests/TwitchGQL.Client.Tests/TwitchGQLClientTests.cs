@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
+using TwitchGQL.Models.Responses;
 
 namespace TwitchGQL.Client.Tests
 {
@@ -9,7 +10,6 @@ namespace TwitchGQL.Client.Tests
     {
         #region Fields
 
-        private const string testLogin = "monstercat";
         private readonly ITwitchGQLClient twitchGQLClient;
 
         #endregion Fields
@@ -37,10 +37,10 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_PlaybackAccessTokenRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: testLogin);
+            Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: "monstercat");
 
             // act
-            Models.Responses.PlaybackAccessToken.Data data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+            PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
             Assert.IsNotNull(data);
@@ -58,7 +58,7 @@ namespace TwitchGQL.Client.Tests
 
             // act
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
-            Models.Responses.FollowButton_FollowUser.Data data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+            FollowButton_FollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
             Assert.IsNotNull(data);
@@ -85,7 +85,7 @@ namespace TwitchGQL.Client.Tests
 
             // act
             await twitchGQLClient.SendQueryAsync(followRequest).ConfigureAwait(false);
-            Models.Responses.FollowButton_UnfollowUser.Data data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+            FollowButton_UnfollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
             Assert.IsNotNull(data);
