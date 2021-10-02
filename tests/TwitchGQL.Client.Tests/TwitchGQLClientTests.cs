@@ -43,7 +43,7 @@ namespace TwitchGQL.Client.Tests
             Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: "monstercat");
 
             // act
-            Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+            Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync<Models.Responses.PlaybackAccessToken>(request).ConfigureAwait(false);
 
             // assert
             Assert.IsNotNull(data);
