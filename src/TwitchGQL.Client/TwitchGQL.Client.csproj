@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Authors>NowaLone</Authors>
     <Description>A wrapper around the GraphQL library to make working with Twitch GQL easier.</Description>
     <PackageProjectUrl>https://github.com/NowaLone/TwitchGQL</PackageProjectUrl>
