@@ -2,9 +2,13 @@
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.SystemTextJson;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Net.Http.Headers;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using TwitchGQL.Client.Converters;
 using TwitchGQL.Models.Requests.Persisted;
 using TwitchGQL.Models.Requests.Templates;
 using TwitchGQL.Models.Responses;
@@ -23,7 +27,7 @@ namespace TwitchGQL.Client
 
         #region Constructors
 
-        public TwitchGQLClient(string endPoint = "https://gql.twitch.tv/gql", ILogger logger = default) : base(endPoint, new SystemTextJsonSerializer())
+        public TwitchGQLClient(string endPoint = "https://gql.twitch.tv/gql", ILogger logger = default) : base(endPoint, new SystemTextJsonSerializer(Configure()))
         {
             this.logger = logger ?? Microsoft.Extensions.Logging.Abstractions.NullLogger<TwitchGQLClient>.Instance;
         }
@@ -55,6 +59,15 @@ namespace TwitchGQL.Client
         #endregion Properties
 
         #region Methods
+
+        private static Action<JsonSerializerOptions> Configure()
+        {
+            return (o) =>
+            {
+                o.Converters.Add(new JsonStringEnumConverter(new UppercaseJsonNamingPolicy()));
+                o.Converters.Add(new PanelConverter());
+            };
+        }
 
         public new async Task<TResult> SendQueryAsync<TResult>(GraphQLRequest request, CancellationToken cancellationToken = default)
         {
@@ -108,6 +121,11 @@ namespace TwitchGQL.Client
         public Task<Directory_DirectoryBanner> SendQueryAsync(Directory_DirectoryBannerRequest request, CancellationToken cancellationToken = default)
         {
             return SendQueryAsync<Directory_DirectoryBanner>(request, cancellationToken);
+        }
+
+        public Task<ChannelPanels> SendQueryAsync(ChannelPanelsRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<ChannelPanels>(request, cancellationToken);
         }
 
         #endregion Methods

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using TwitchGQL.Models.Enums;
+using TwitchGQL.Models.Interfaces;
 
 namespace TwitchGQL.Models.Types
 {
     /// <summary>
     /// A Game is often the subject of a Stream on Twitch.
     /// </summary>
-    public class Game
+    public class Game : IDirectory
     {
         /// <summary>
         /// What campaigns are active for this game.
@@ -36,6 +38,12 @@ namespace TwitchGQL.Models.Types
         public Uri BoxArtURL { get; set; }
 
         /// <summary>
+        /// Number of broadcasters streaming this game.
+        /// </summary>
+        [JsonPropertyName("broadcastersCount")]
+        public int? BroadcastersCount { get; set; }
+
+        /// <summary>
         /// URL to a cover image. The image dimensions are specifiable via the <c>height</c> and <c>width</c> parameters.
         /// </summary>
         /// <remarks>
@@ -52,6 +60,12 @@ namespace TwitchGQL.Models.Types
         public string Description { get; set; }
 
         /// <summary>
+        /// The type of directory – in this case, always GAME.
+        /// </summary>
+        [JsonPropertyName("directoryType")]
+        public DirectoryType? DirectoryType { get; set; }
+
+        /// <summary>
         /// The translated game name used for display purposes. Use name for tracking props or URLs.
         /// </summary>
         [JsonPropertyName("displayName")]
@@ -61,7 +75,7 @@ namespace TwitchGQL.Models.Types
         /// Number of users that follow this game.
         /// </summary>
         [JsonPropertyName("followersCount")]
-        public int FollowersCount { get; set; }
+        public int? FollowersCount { get; set; }
 
         /// <summary>
         /// The game's unique Twitch identifier. It is used to associate games with product offers.
@@ -100,6 +114,6 @@ namespace TwitchGQL.Models.Types
         /// Number of viewers currently watching a stream which features this game.
         /// </summary>
         [JsonPropertyName("viewersCount")]
-        public int ViewersCount { get; set; }
+        public int? ViewersCount { get; set; }
     }
 }

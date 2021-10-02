@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using TwitchGQL.Models.Unions;
 
 namespace TwitchGQL.Models.Types
 {
@@ -11,7 +12,7 @@ namespace TwitchGQL.Models.Types
         /// Contains an emote or a mentioned user depending on the text of the fragment.
         /// </summary>
         [JsonPropertyName("content")]
-        public Emote Content { get; set; }
+        public IFragmentContent Content { get; set; }
 
         /// <summary>
         /// Plaintext representation of the fragment.
