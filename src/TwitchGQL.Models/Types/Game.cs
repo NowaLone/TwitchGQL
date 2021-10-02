@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace TwitchGQL.Models.Types
@@ -9,6 +10,23 @@ namespace TwitchGQL.Models.Types
     public class Game
     {
         /// <summary>
+        /// What campaigns are active for this game.
+        /// </summary>
+        [Obsolete("Functionality not supported in Drops 2.0")]
+        [JsonPropertyName("activeDropCampaigns")]
+        public IEnumerable<DropCampaign> ActiveDropCampaigns { get; set; }
+
+        /// <summary>
+        /// URL to an avatar image. The image dimensions are specifiable via the <c>height</c> and <c>width</c> parameters.
+        /// </summary>
+        /// <remarks>
+        /// If <c>height</c> or <c>width</c> are not specified, the URL will contain
+        /// the template strings <c>{height}</c> and/or <c>{width}</c> in their respective places.
+        /// </remarks>
+        [JsonPropertyName("avatarURL")]
+        public Uri AvatarURL { get; set; }
+
+        /// <summary>
         /// URL to a box art image. The image dimensions are specifiable via the <c>height</c> and <c>width</c> parameters.
         /// </summary>
         /// <remarks>
@@ -18,10 +36,32 @@ namespace TwitchGQL.Models.Types
         public Uri BoxArtURL { get; set; }
 
         /// <summary>
+        /// URL to a cover image. The image dimensions are specifiable via the <c>height</c> and <c>width</c> parameters.
+        /// </summary>
+        /// <remarks>
+        /// If <c>height</c> or <c>width</c> are not specified, the URL will contain
+        /// the template strings <c>{height}</c> and/or <c>{width}</c> in their respective places.
+        /// </remarks>
+        [JsonPropertyName("coverURL")]
+        public Uri CoverURL { get; set; }
+
+        /// <summary>
+        /// The game's description.
+        /// </summary>
+        [JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        /// <summary>
         /// The translated game name used for display purposes. Use name for tracking props or URLs.
         /// </summary>
         [JsonPropertyName("displayName")]
         public string DisplayName { get; set; }
+
+        /// <summary>
+        /// Number of users that follow this game.
+        /// </summary>
+        [JsonPropertyName("followersCount")]
+        public int FollowersCount { get; set; }
 
         /// <summary>
         /// The game's unique Twitch identifier. It is used to associate games with product offers.
@@ -36,6 +76,12 @@ namespace TwitchGQL.Models.Types
         public string Name { get; set; }
 
         /// <summary>
+        /// The game's unique Presto identifier.
+        /// </summary>
+        [JsonPropertyName("prestoID")]
+        public string PrestoID { get; set; }
+
+        /// <summary>
         /// Get a page of live streams broadcasting this game. The languages param can be used to filter the streams. Otherwise all languages will be returned. The filters param contains additional metadata filters, for example {hearthstoneGameMode: "arena"}
         /// </summary>
         ///<remarks>
@@ -43,5 +89,17 @@ namespace TwitchGQL.Models.Types
         ///</remarks>
         [JsonPropertyName("streams")]
         public StreamConnection Streams { get; set; }
+
+        /// <summary>
+        /// List of recommeded tags in the corresponding category.
+        /// </summary>
+        [JsonPropertyName("tags")]
+        public IEnumerable<Tag> Tags { get; set; }
+
+        /// <summary>
+        /// Number of viewers currently watching a stream which features this game.
+        /// </summary>
+        [JsonPropertyName("viewersCount")]
+        public int ViewersCount { get; set; }
     }
 }

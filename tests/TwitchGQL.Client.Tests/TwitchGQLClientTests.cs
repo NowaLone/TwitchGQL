@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
+using TwitchGQL.Models.Requests.Persisted;
 using TwitchGQL.Models.Responses;
 using TwitchGQL.Models.Types;
 
@@ -85,8 +86,8 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_FollowButton_FollowUserRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
-            Models.Requests.Persisted.FollowButton_FollowUserRequest request = new("12826");
+            FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
+            FollowButton_FollowUserRequest request = new("12826");
 
             // act
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
@@ -112,8 +113,8 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_FollowButton_UnfollowUserRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.FollowButton_FollowUserRequest followRequest = new("12826");
-            Models.Requests.Persisted.FollowButton_UnfollowUserRequest request = new("12826");
+            FollowButton_FollowUserRequest followRequest = new("12826");
+            FollowButton_UnfollowUserRequest request = new("12826");
 
             // act
             await twitchGQLClient.SendQueryAsync(followRequest).ConfigureAwait(false);
@@ -137,7 +138,7 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_DirectoryPage_GameRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.DirectoryPage_GameRequest request = new("music");
+            DirectoryPage_GameRequest request = new("music");
 
             // act
             DirectoryPage_Game data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
@@ -189,6 +190,102 @@ namespace TwitchGQL.Client.Tests
             Assert.IsTrue(tag.IsLanguageTag);
             Assert.AreEqual("English", tag.LocalizedName);
             Assert.AreEqual("auto___lang_en", tag.TagName);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_DirectoryRoot_DirectoryRequest_ShouldReturnData()
+        {
+            // arrange
+            DirectoryRoot_DirectoryRequest request = new("grand theft auto v");
+
+            // act
+            DirectoryRoot_Directory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.Game);
+            Assert.AreEqual("Grand Theft Auto V", data.Game.DisplayName);
+            Assert.AreEqual("32982", data.Game.Id);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_Directory_DirectoryBannerRequest_ShouldReturnData()
+        {
+            // arrange
+            Directory_DirectoryBannerRequest request = new("Grand Theft Auto V");
+            Tag[] tags = new Tag[5]
+            {
+                new Tag()
+                {
+                    Id="80427d95-bb46-42d3-bf4d-408e9bdca49a",
+                    IsLanguageTag=false,
+                    LocalizedName="Adventure Game",
+                    TagName="Adventure Game"
+                },
+                new Tag()
+                {
+                    Id="a69f7ffb-ddda-4c05-8d7d-f0b24975a2c3",
+                    IsLanguageTag=false,
+                    LocalizedName="FPS",
+                    TagName="FPS"
+                },
+                new Tag()
+                {
+                    Id="523fe736-fa95-44c7-b22f-13008ca2172c",
+                    IsLanguageTag=false,
+                    LocalizedName="Shooter",
+                    TagName="Shooter"
+                },
+                new Tag()
+                {
+                    Id="4d1eaa36-f750-4862-b7e9-d0a13970d535",
+                    IsLanguageTag=false,
+                    LocalizedName="Action",
+                    TagName="Action"
+                },
+                new Tag()
+                {
+                    Id="a682f560-5186-4871-b97a-8d8e3f4308e9",
+                    IsLanguageTag=false,
+                    LocalizedName="Open World",
+                    TagName="Open World"
+                },
+            };
+            // act
+            Directory_DirectoryBanner data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.Game);
+            Assert.IsNotNull(data.CurrentUser);
+
+            Assert.IsNull(data.Game.ActiveDropCampaigns);
+            Assert.AreEqual("https://static-cdn.jtvnw.net/ttv-boxart/Grand%20Theft%20Auto%20V-144x192.jpg", data.Game.AvatarURL.AbsoluteUri);
+            Assert.AreEqual("https://static-cdn.jtvnw.net/categorydb-production-game-banners/32982/en-us/781d77d7-834c-4650-9b34-42945e1b8e8f.png", data.Game.CoverURL.AbsoluteUri);
+            Assert.AreEqual("The biggest, most dynamic and most diverse open world ever created, Grand Theft Auto V blends storytelling and gameplay in new ways as players repeatedly jump in and out of the lives of the game’s three lead characters, playing all sides of the game’s interwoven story.", data.Game.Description);
+            Assert.AreEqual("Grand Theft Auto V", data.Game.DisplayName);
+            Assert.AreNotEqual(0, data.Game.FollowersCount);
+            Assert.AreEqual("32982", data.Game.Id);
+            Assert.AreEqual("Grand Theft Auto V", data.Game.Name);
+            Assert.IsNull(data.Game.PrestoID);
+            Assert.IsNotNull(data.Game.Streams);
+            Assert.IsNotNull(data.Game.Tags);
+            Assert.AreNotEqual(0, data.Game.ViewersCount);
+
+            Assert.IsFalse(string.IsNullOrWhiteSpace(data.CurrentUser.Id));
+            Assert.IsNull(data.CurrentUser.Roles.IsSiteAdmin);
+            Assert.IsNull(data.CurrentUser.Roles.IsStaff);
+
+            Assert.IsNotNull(data.Game.Streams.Edges);
+            Assert.AreEqual(1, data.Game.Streams.Edges.Count());
+
+            StreamEdge node = data.Game.Streams.Edges.First();
+            Assert.IsNotNull(node.Node);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(node.Node.Id));
+            Assert.IsNotNull(node.Node.PreviewImageURL);
+            data.Game.Tags.Intersect(tags);
+            Assert.AreEqual(tags.Count(), data.Game.Tags.Count());
+            Assert.IsFalse(data.Game.Tags.Any(t => tags.FirstOrDefault(ta => ta.Id == t.Id && ta.IsLanguageTag == t.IsLanguageTag && ta.LocalizedName == t.LocalizedName && ta.TagName == t.TagName) == default));
         }
 
         #endregion Methods
