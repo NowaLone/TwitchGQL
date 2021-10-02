@@ -4,6 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>NowaLone</Authors>
     <Description>A wrapper around the GraphQL library to make working with Twitch GQL easier.</Description>
+    <PackageProjectUrl>https://github.com/NowaLone/TwitchGQL</PackageProjectUrl>
     <UpdateAssemblyInfo Condition="'$(Configuration)'=='Debug'">false</UpdateAssemblyInfo>
     <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
     <!-- Optional: Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
