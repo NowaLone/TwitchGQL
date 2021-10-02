@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace TwitchGQL.Models.Types
@@ -66,9 +67,33 @@ namespace TwitchGQL.Models.Types
         public ModLogs ModLogs { get; set; }
 
         /// <summary>
+        /// The hex string for the user's primary creator color. Example: "FFFFFF".
+        /// </summary>
+        [JsonPropertyName("primaryColorHex")]
+        public string PrimaryColorHex { get; set; }
+
+        /// <summary>
+        /// A URL to the user's profile image. Valid widths are 28, 50, 70, 96, 150, 300, and 600. The image height will be the same as the given width.
+        /// </summary>
+        [JsonPropertyName("profileImageURL")]
+        public Uri ProfileImageURL { get; set; }
+
+        /// <summary>
+        /// The roles this user fulfills on Twitch.
+        /// </summary>
+        [JsonPropertyName("roles")]
+        public UserRoles Roles { get; set; }
+
+        /// <summary>
         /// The authenticated user's relationship with this user.
         /// </summary>
         [JsonPropertyName("self")]
         public UserSelfConnection Self { get; set; }
+
+        /// <summary>
+        /// Tags are used as a discovery and search mechanism for channels. The tag data is from Graffiti directly. Graffiti is not designed to handle huge traffic. Please use <see cref="Stream.Tags"/> instead if know the stream is live and you can accept a 5 min delay in the data. For example, you should use <see cref="Stream.Tags"/> for the channel page and the browse page, but use <see cref="User.Tags"/> for the dashboard.
+        /// </summary>
+        [JsonPropertyName("tags")]
+        public IEnumerable<Tag> Tags { get; set; }
     }
 }
