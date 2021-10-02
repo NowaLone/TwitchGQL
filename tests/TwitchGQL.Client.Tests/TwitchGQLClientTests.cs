@@ -1,3 +1,4 @@
+using GraphQL;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
@@ -32,6 +33,35 @@ namespace TwitchGQL.Client.Tests
         #endregion Constructors
 
         #region Methods
+
+        [TestMethod]
+        public async Task SendQueryAsync_Generic_ShouldReturnData()
+        {
+            // arrange
+            Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: "monstercat");
+
+            // act
+            PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.StreamPlaybackAccessToken);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(data.StreamPlaybackAccessToken.Value));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(data.StreamPlaybackAccessToken.Signature));
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_Generic_WithWrongRequest_ShouldReturnNull()
+        {
+            // arrange
+            GraphQLRequest request = new();
+
+            // act
+            PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync<PlaybackAccessToken>(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNull(data);
+        }
 
         [TestMethod]
         public async Task SendQueryAsync_PlaybackAccessTokenRequest_ShouldReturnData()
