@@ -43,12 +43,12 @@ namespace TwitchGQL.Models.Types
         /// Whether or not the user is a site admininistrator.
         /// </summary>
         [JsonPropertyName("isSiteAdmin")]
-        public bool IsSiteAdmin { get; set; }
+        public bool? IsSiteAdmin { get; set; }
 
         /// <summary>
         /// Whether or not the user is a Twitch staff member.
         /// </summary>
         [JsonPropertyName("isStaff")]
-        public bool IsStaff { get; set; }
+        public bool? IsStaff { get; set; }
     }
 }
