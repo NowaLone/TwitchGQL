@@ -170,7 +170,7 @@ namespace TwitchGQL.Client.Tests
             Assert.IsNotNull(stream.Node.PreviewImageURL);
             Assert.AreEqual("https://static-cdn.jtvnw.net/previews-ttv/live_user_monstercat-440x248.jpg", stream.Node.PreviewImageURL.AbsoluteUri);
             Assert.IsNotNull(stream.Node.Tags);
-            Assert.AreEqual("Non Stop Music - Monstercat TV  🎶", stream.Node.Title);
+            Assert.AreEqual("Non Stop Music - Monstercat TV 🎶", stream.Node.Title);
             Assert.AreEqual("live", stream.Node.Type);
             Assert.AreNotEqual(0, stream.Node.ViewersCount);
 
