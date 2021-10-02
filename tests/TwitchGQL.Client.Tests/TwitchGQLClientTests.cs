@@ -1,8 +1,12 @@
 ﻿using GraphQL;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TwitchGQL.Models.Enums;
+using TwitchGQL.Models.Interfaces;
 using TwitchGQL.Models.Requests.Persisted;
 using TwitchGQL.Models.Responses;
 using TwitchGQL.Models.Types;
@@ -213,37 +217,37 @@ namespace TwitchGQL.Client.Tests
         {
             // arrange
             Directory_DirectoryBannerRequest request = new("Grand Theft Auto V");
-            Tag[] tags = new Tag[5]
+            IEnumerable<Tag> tags = new Tag[]
             {
-                new Tag()
+                new Tag
                 {
                     Id="80427d95-bb46-42d3-bf4d-408e9bdca49a",
                     IsLanguageTag=false,
                     LocalizedName="Adventure Game",
                     TagName="Adventure Game"
                 },
-                new Tag()
+                new Tag
                 {
                     Id="a69f7ffb-ddda-4c05-8d7d-f0b24975a2c3",
                     IsLanguageTag=false,
                     LocalizedName="FPS",
                     TagName="FPS"
                 },
-                new Tag()
+                new Tag
                 {
                     Id="523fe736-fa95-44c7-b22f-13008ca2172c",
                     IsLanguageTag=false,
                     LocalizedName="Shooter",
                     TagName="Shooter"
                 },
-                new Tag()
+                new Tag
                 {
                     Id="4d1eaa36-f750-4862-b7e9-d0a13970d535",
                     IsLanguageTag=false,
                     LocalizedName="Action",
                     TagName="Action"
                 },
-                new Tag()
+                new Tag
                 {
                     Id="a682f560-5186-4871-b97a-8d8e3f4308e9",
                     IsLanguageTag=false,
@@ -286,6 +290,92 @@ namespace TwitchGQL.Client.Tests
             data.Game.Tags.Intersect(tags);
             Assert.AreEqual(tags.Count(), data.Game.Tags.Count());
             Assert.IsFalse(data.Game.Tags.Any(t => tags.FirstOrDefault(ta => ta.Id == t.Id && ta.IsLanguageTag == t.IsLanguageTag && ta.LocalizedName == t.LocalizedName && ta.TagName == t.TagName) == default));
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_ChannelPanelsRequest_ShouldReturnData()
+        {
+            // arrange
+            ChannelPanelsRequest request = new("12826");
+            IEnumerable<IPanel> panels = new IPanel[]
+            {
+                new DefaultPanel
+                {
+                    Description=null,
+                    Id="108497086",
+                    ImageURL=new Uri("https://panels-images.twitch.tv/panel-12826-image-b4f68cb5-8aa8-47b7-bdbc-febf0bf28be6"),
+                    LinkURL=null,
+                    Title=null,
+                    Type=PanelType.DEFAULT
+                },
+                new DefaultPanel
+                {
+                    Description=null,
+                    Id="47505838",
+                    ImageURL=new Uri("https://panels-images.twitch.tv/panel-12826-image-8a6f2d17-b7e3-4e1d-a05f-7535c0ed54bc"),
+                    LinkURL=new Uri("https://twitch.app.link/RziDvXOBu1"),
+                    Title=null,
+                    Type=PanelType.DEFAULT
+                },
+                new DefaultPanel
+                {
+                    Description=null,
+                    Id="45704882",
+                    ImageURL=new Uri("https://panels-images.twitch.tv/panel-12826-image-ea744eb9-0ae8-417e-b071-85c9630d1cdd"),
+                    LinkURL=new Uri("https://www.twitch.tv/p/legal/community-guidelines/"),
+                    Title=null,
+                    Type=PanelType.DEFAULT
+                },
+                new DefaultPanel
+                {
+                    Description=null,
+                    Id="50630002",
+                    ImageURL=new Uri("https://panels-images.twitch.tv/panel-12826-image-04528640-4c11-4018-82a1-7677ac722667"),
+                    LinkURL=new Uri("https://dashboard.twitch.tv/extensions/skt182bso1i1ah7dnmkwqkdk26dak4"),
+                    Title=null,
+                    Type=PanelType.DEFAULT
+                },
+                new DefaultPanel
+                {
+                    Description=null,
+                    Id="89453673",
+                    ImageURL=new Uri("https://panels-images.twitch.tv/panel-12826-image-58140f8b-53aa-40f3-8d18-cb6e096dd75e"),
+                    LinkURL=new Uri("https://www.twitch.tv/broadcast/soundtrack"),
+                    Title=null,
+                    Type=PanelType.DEFAULT
+                },
+                new ExtensionPanel
+                {
+                    Id = "45797311",
+                    SlotID="extension-panel-1",
+                    Type=PanelType.EXTENSION
+                }
+            };
+
+            // act
+            ChannelPanels data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.CurrentUser);
+            Assert.IsNotNull(data.User);
+
+            Assert.IsFalse(string.IsNullOrWhiteSpace(data.CurrentUser.Id));
+            Assert.IsFalse(string.IsNullOrWhiteSpace(data.CurrentUser.Login));
+            Assert.IsNotNull(data.CurrentUser.Roles);
+            Assert.IsNull(data.CurrentUser.Roles.IsSiteAdmin);
+            Assert.IsNull(data.CurrentUser.Roles.IsStaff);
+
+            Assert.IsNotNull(data.User.Cheer);
+            Assert.AreEqual("12826", data.User.Cheer.Id);
+            Assert.AreEqual("12826", data.User.Id);
+            Assert.AreEqual("twitch", data.User.Login);
+            Assert.IsNotNull(data.User.Panels);
+            Assert.AreEqual(panels.Count(), data.User.Panels.Count());
+            Assert.IsFalse(data.User.Panels.OfType<DefaultPanel>().Any(p => panels.OfType<DefaultPanel>().FirstOrDefault(pa => pa.Description == p.Description && pa.Id == p.Id && pa.ImageURL == p.ImageURL && pa.LinkURL == p.LinkURL && pa.Title == p.Title && pa.Type == p.Type) == default));
+            Assert.IsFalse(data.User.Panels.OfType<ExtensionPanel>().Any(p => panels.OfType<ExtensionPanel>().FirstOrDefault(pa => pa.Id == p.Id && pa.SlotID == p.SlotID && pa.Type == p.Type) == default));
+            Assert.IsNotNull(data.User.Self);
+            Assert.IsNull(data.User.Self.BanStatus);
         }
 
         #endregion Methods
