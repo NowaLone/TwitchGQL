@@ -26,3 +26,13 @@ jobs:
       run: dotnet pack --configuration Release
     - name: Push
       run: dotnet nuget push src/**.nupkg --source "github"
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ env.GitVersion_SemVer }}
+        release_name: v${{ env.GitVersion_SemVer }}
+        draft: false
+        prerelease: true
