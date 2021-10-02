@@ -13,7 +13,7 @@ namespace TwitchGQL.Models.Types
         /// Timestamp of the creation of this tag.
         /// </summary>
         [JsonPropertyName("createdAt")]
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
 
         /// <summary>
         /// This tag's unique identifier.

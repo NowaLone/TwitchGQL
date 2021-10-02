@@ -56,6 +56,6 @@ namespace TwitchGQL.Models.Types
         /// The number of viewers currently watching the stream.
         /// </summary>
         [JsonPropertyName("viewersCount")]
-        public int ViewersCount { get; set; }
+        public int? ViewersCount { get; set; }
     }
 }

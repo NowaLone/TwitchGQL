@@ -12,32 +12,32 @@ namespace TwitchGQL.Models.Types
         /// Whether or not the user is enrolled in the affiliate program. See <see href="https://affiliate.twitch.tv"/> for more information.
         /// </summary>
         [JsonPropertyName("isAffiliate")]
-        public bool IsAffiliate { get; set; }
+        public bool? IsAffiliate { get; set; }
 
         /// <summary>
         /// Whether or not the user is allowed to approve extensions on Twitch.
         /// </summary>
         [Obsolete("This role is no longer surfaced through the API")]
         [JsonPropertyName("isExtensionsApprover")]
-        public bool IsExtensionsApprover { get; set; }
+        public bool? IsExtensionsApprover { get; set; }
 
         /// <summary>
         /// Whether or not the user is enrolled in the extensions developer program. See <see href="https://dev.twitch.tv/docs/extensions/onboarding"/> for more information.
         /// </summary>
         [JsonPropertyName("isExtensionsDeveloper")]
-        public bool IsExtensionsDeveloper { get; set; }
+        public bool? IsExtensionsDeveloper { get; set; }
 
         /// <summary>
         /// Whether or not the user can moderate any broadcast chat.
         /// </summary>
         [JsonPropertyName("isGlobalMod")]
-        public bool IsGlobalMod { get; set; }
+        public bool? IsGlobalMod { get; set; }
 
         /// <summary>
         /// Whether or not the user is a partnered broadcaster with Twitch.
         /// </summary>
         [JsonPropertyName("isPartner")]
-        public bool IsPartner { get; set; }
+        public bool? IsPartner { get; set; }
 
         /// <summary>
         /// Whether or not the user is a site admininistrator.

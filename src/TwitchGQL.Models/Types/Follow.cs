@@ -12,13 +12,13 @@ namespace TwitchGQL.Models.Types
         /// Whether to disable notifications for this relationship.
         /// </summary>
         [JsonPropertyName("disableNotifications")]
-        public bool DisableNotifications { get; set; }
+        public bool? DisableNotifications { get; set; }
 
         /// <summary>
         /// Represents when this relationship was established.
         /// </summary>
         [JsonPropertyName("followedAt")]
-        public DateTime FollowedAt { get; set; }
+        public DateTime? FollowedAt { get; set; }
 
         /// <summary>
         /// The user who is followed.

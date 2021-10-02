@@ -24,13 +24,13 @@ namespace TwitchGQL.Models.Types
         /// The time at which the ban will automatically expire.
         /// </summary>
         [JsonPropertyName("expiresAt")]
-        public DateTime ExpiresAt { get; set; }
+        public DateTime? ExpiresAt { get; set; }
 
         /// <summary>
         /// The time in ms at which the ban will expire.
         /// </summary>
         [JsonPropertyName("expiresInMs")]
-        public int ExpiresInMs { get; set; }
+        public int? ExpiresInMs { get; set; }
 
         /// <summary>
         /// Conveys if the ban is permanent.

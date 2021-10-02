@@ -11,6 +11,6 @@ namespace TwitchGQL.Models.Types
         /// Whether to disable notifications for this relationship.
         /// </summary>
         [JsonPropertyName("disableNotifications")]
-        public bool DisableNotifications { get; set; }
+        public bool? DisableNotifications { get; set; }
     }
 }
