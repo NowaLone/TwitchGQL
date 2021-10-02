@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading.Tasks;
+using TwitchGQL.Models.Requests.Persisted;
 using TwitchGQL.Models.Responses;
 using TwitchGQL.Models.Types;
 
@@ -85,8 +86,8 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_FollowButton_FollowUserRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
-            Models.Requests.Persisted.FollowButton_FollowUserRequest request = new("12826");
+            FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
+            FollowButton_FollowUserRequest request = new("12826");
 
             // act
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
@@ -112,8 +113,8 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_FollowButton_UnfollowUserRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.FollowButton_FollowUserRequest followRequest = new("12826");
-            Models.Requests.Persisted.FollowButton_UnfollowUserRequest request = new("12826");
+            FollowButton_FollowUserRequest followRequest = new("12826");
+            FollowButton_UnfollowUserRequest request = new("12826");
 
             // act
             await twitchGQLClient.SendQueryAsync(followRequest).ConfigureAwait(false);
@@ -137,7 +138,7 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_DirectoryPage_GameRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.DirectoryPage_GameRequest request = new("music");
+            DirectoryPage_GameRequest request = new("music");
 
             // act
             DirectoryPage_Game data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
@@ -189,6 +190,22 @@ namespace TwitchGQL.Client.Tests
             Assert.IsTrue(tag.IsLanguageTag);
             Assert.AreEqual("English", tag.LocalizedName);
             Assert.AreEqual("auto___lang_en", tag.TagName);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_DirectoryRoot_DirectoryRequest_ShouldReturnData()
+        {
+            // arrange
+            DirectoryRoot_DirectoryRequest request = new("grand theft auto v");
+
+            // act
+            DirectoryRoot_Directory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.Game);
+            Assert.AreEqual("Grand Theft Auto V", data.Game.DisplayName);
+            Assert.AreEqual("32982", data.Game.Id);
         }
 
         #endregion Methods
