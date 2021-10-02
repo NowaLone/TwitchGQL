@@ -62,6 +62,8 @@ namespace TwitchGQL.Client
 
             GraphQLResponse<TResult> result = await base.SendQueryAsync<TResult>(request, cancellationToken).ConfigureAwait(false);
 
+            logger.LogInformation("{OperationName} request has {errorCount} errors.", request.OperationName, result.Errors?.Length);
+
             if (result.Errors?.Length > 0)
             {
                 foreach (GraphQLError error in result.Errors)
