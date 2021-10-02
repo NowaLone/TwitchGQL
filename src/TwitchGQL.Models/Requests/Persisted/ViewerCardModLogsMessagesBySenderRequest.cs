@@ -11,7 +11,7 @@
 
         #region Constructors
 
-        public ViewerCardModLogsMessagesBySenderRequest(string senderID, string channelLogin, bool includeAutoModCaughtMessages, string cursor) : base(null, new { senderID, channelLogin, includeAutoModCaughtMessages, cursor }, operationName, 1, sha256Hash)
+        public ViewerCardModLogsMessagesBySenderRequest(string senderID, string channelLogin, bool includeAutoModCaughtMessages = true, string cursor = null) : base(null, new { senderID, channelLogin, includeAutoModCaughtMessages, cursor }, operationName, 1, sha256Hash)
         {
         }
 

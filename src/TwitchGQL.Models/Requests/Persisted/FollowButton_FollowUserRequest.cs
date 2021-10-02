@@ -11,7 +11,7 @@
 
         #region Constructors
 
-        public FollowButton_FollowUserRequest(bool disableNotifications, string targetID) : base(null, new { input = new { disableNotifications, targetID } }, operationName, 1, sha256Hash)
+        public FollowButton_FollowUserRequest(string targetID, bool disableNotifications = false) : base(null, new { input = new { disableNotifications, targetID } }, operationName, 1, sha256Hash)
         {
         }
 

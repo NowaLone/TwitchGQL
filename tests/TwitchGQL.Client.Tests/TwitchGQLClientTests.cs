@@ -86,7 +86,7 @@ namespace TwitchGQL.Client.Tests
         {
             // arrange
             Models.Requests.Persisted.FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
-            Models.Requests.Persisted.FollowButton_FollowUserRequest request = new(false, "12826");
+            Models.Requests.Persisted.FollowButton_FollowUserRequest request = new("12826");
 
             // act
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
@@ -112,7 +112,7 @@ namespace TwitchGQL.Client.Tests
         public async Task SendQueryAsync_FollowButton_UnfollowUserRequest_ShouldReturnData()
         {
             // arrange
-            Models.Requests.Persisted.FollowButton_FollowUserRequest followRequest = new(false, "12826");
+            Models.Requests.Persisted.FollowButton_FollowUserRequest followRequest = new("12826");
             Models.Requests.Persisted.FollowButton_UnfollowUserRequest request = new("12826");
 
             // act
