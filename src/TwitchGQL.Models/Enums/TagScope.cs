@@ -1,4 +1,4 @@
-﻿namespace TwitchGQL.Models.Requests.Enums
+﻿namespace TwitchGQL.Models.Enums
 {
     /// <summary>
     /// An enumeration on the different scope of a tag.

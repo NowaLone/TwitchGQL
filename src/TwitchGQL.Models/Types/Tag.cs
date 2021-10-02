@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.Json.Serialization;
-using TwitchGQL.Models.Requests.Enums;
+using TwitchGQL.Models.Enums;
 
 namespace TwitchGQL.Models.Types
 {

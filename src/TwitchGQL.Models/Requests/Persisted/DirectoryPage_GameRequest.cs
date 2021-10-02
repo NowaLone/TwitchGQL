@@ -1,4 +1,4 @@
-﻿using TwitchGQL.Models.Requests.Enums;
+﻿using TwitchGQL.Models.Enums;
 
 namespace TwitchGQL.Models.Requests.Persisted
 {
@@ -14,7 +14,7 @@ namespace TwitchGQL.Models.Requests.Persisted
 
         #region Constructors
 
-        public DirectoryPage_GameRequest(string name, Sort sort = Sort.RELEVANCE, string platform = "web", string requestID = "JIRA-VXP-2397", int limit = 30) : base(null, new { name, options = new { sort = sort.ToString(), recommendationsContext = new { platform }, requestID, tags = new string[0] }, sortTypeIsRecency = sort == Sort.RECENT, limit }, operationName, version, sha256Hash)
+        public DirectoryPage_GameRequest(string name, StreamSort sort = StreamSort.RELEVANCE, string platform = "web", string requestID = "JIRA-VXP-2397", int limit = 30) : base(null, new { name, options = new { sort = sort.ToString(), recommendationsContext = new { platform }, requestID, tags = new string[0] }, sortTypeIsRecency = sort == StreamSort.RECENT, limit }, operationName, version, sha256Hash)
         {
         }
 
