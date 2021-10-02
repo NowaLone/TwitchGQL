@@ -95,6 +95,11 @@ namespace TwitchGQL.Client
             return SendQueryAsync<FollowButton_UnfollowUser>(request, cancellationToken);
         }
 
+        public Task<DirectoryPage_Game> SendQueryAsync(DirectoryPage_GameRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<DirectoryPage_Game>(request, cancellationToken);
+        }
+
         #endregion Methods
     }
 }
