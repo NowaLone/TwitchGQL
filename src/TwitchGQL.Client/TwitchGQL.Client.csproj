@@ -23,6 +23,7 @@
     </PackageReference>
     <PackageReference Include="GraphQL.Client" Version="3.2.4" />
     <PackageReference Include="GraphQL.Client.Serializer.SystemTextJson" Version="3.2.4" />
+    <PackageReference Include="Macross.Json.Extensions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>

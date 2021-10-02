@@ -8,6 +8,12 @@ namespace TwitchGQL.Models.Types
     public class UserSelfConnection
     {
         /// <summary>
+        /// Ban status of the authenticated user with respect to this user's channel.
+        /// </summary>
+        [JsonPropertyName("banStatus")]
+        public ChatRoomBanStatus BanStatus { get; set; }
+
+        /// <summary>
         /// Whether or not the authenticated user can follow this user.
         /// </summary>
         [JsonPropertyName("canFollow")]

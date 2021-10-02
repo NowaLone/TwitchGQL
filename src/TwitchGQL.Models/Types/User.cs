@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using TwitchGQL.Models.Interfaces;
 
 namespace TwitchGQL.Models.Types
 {
@@ -14,6 +15,12 @@ namespace TwitchGQL.Models.Types
         /// </summary>
         [JsonPropertyName("chatColor")]
         public string ChatColor { get; set; }
+
+        /// <summary>
+        /// cheer is the channel-specific cheer settings and current state. Returns <see langword="null"/> if cheering isn't enabled for this channel.
+        /// </summary>
+        [JsonPropertyName("cheer")]
+        public CheerInfo Cheer { get; set; }
 
         /// <summary>
         /// Lists the chat badges that should be displayed by the user's display name in features like chat and whispers. If a channelID is passed in, fetches the display badges that user will have in that channel's context.
@@ -65,6 +72,12 @@ namespace TwitchGQL.Models.Types
         /// </summary>
         [JsonPropertyName("modLogs")]
         public ModLogs ModLogs { get; set; }
+
+        /// <summary>
+        /// panels is a list of <see cref="IPanel"/> objects with information related to this channel.
+        /// </summary>
+        [JsonPropertyName("panels")]
+        public IEnumerable<IPanel> Panels { get; set; }
 
         /// <summary>
         /// The hex string for the user's primary creator color. Example: "FFFFFF".

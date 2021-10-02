@@ -34,6 +34,8 @@ namespace TwitchGQL.Client
 
         Task<Directory_DirectoryBanner> SendQueryAsync(Directory_DirectoryBannerRequest request, CancellationToken cancellationToken = default);
 
+        Task<ChannelPanels> SendQueryAsync(ChannelPanelsRequest request, CancellationToken cancellationToken = default);
+
         #endregion Methods
     }
 }
