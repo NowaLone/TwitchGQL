@@ -34,7 +34,7 @@ namespace TwitchGQL.Models.Types
         public Uri PreviewImageURL { get; set; }
 
         /// <summary>
-        /// Tags are used as a discovery and search mechanism for tags and tagged content. The tag data may not be updated immediately after streamers update their tags. Please use <see cref="User.Tags"/> instead if you want real time data from Graffiti. For example, you should use <see cref="<see cref="Stream.Tags"/>"/> for the channel page and the browse page, but use <see cref="User.Tags"/> for the dashboard.
+        /// Tags are used as a discovery and search mechanism for tags and tagged content. The tag data may not be updated immediately after streamers update their tags. Please use <see cref="User.Tags"/> instead if you want real time data from Graffiti. For example, you should use <see cref="Stream.Tags"/> for the channel page and the browse page, but use <see cref="User.Tags"/> for the dashboard.
         /// </summary>
         [JsonPropertyName("tags")]
         public IEnumerable<Tag> Tags { get; set; }

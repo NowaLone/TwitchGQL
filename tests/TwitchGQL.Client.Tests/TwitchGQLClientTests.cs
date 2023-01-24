@@ -287,7 +287,6 @@ namespace TwitchGQL.Client.Tests
             Assert.IsNotNull(node.Node);
             Assert.IsFalse(string.IsNullOrWhiteSpace(node.Node.Id));
             Assert.IsNotNull(node.Node.PreviewImageURL);
-            data.Game.Tags.Intersect(tags);
             Assert.AreEqual(tags.Count(), data.Game.Tags.Count());
             Assert.IsFalse(data.Game.Tags.Any(t => tags.FirstOrDefault(ta => ta.Id == t.Id && ta.IsLanguageTag == t.IsLanguageTag && ta.LocalizedName == t.LocalizedName && ta.TagName == t.TagName) == default));
         }
