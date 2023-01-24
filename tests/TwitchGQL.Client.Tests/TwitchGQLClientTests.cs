@@ -1,5 +1,8 @@
 ﻿using GraphQL;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -30,7 +33,7 @@ namespace TwitchGQL.Client.Tests
                .AddUserSecrets<TwitchGQLClientTests>()
                .Build();
 
-            twitchGQLClient = new TwitchGQLClient
+            twitchGQLClient = new TwitchGQLClient(logger: new DebugLoggerProvider().CreateLogger(nameof(TwitchGQLClient)))
             {
                 ClientId = config.GetSection(nameof(TwitchGQLClient.ClientId)).Value,
                 Authorization = config.GetSection(nameof(TwitchGQLClient.Authorization)).Value
@@ -430,6 +433,92 @@ namespace TwitchGQL.Client.Tests
             Assert.AreEqual(new Uri("https://static-cdn.jtvnw.net/jtv_user_pictures/c2178e3b-acad-4d0a-8f85-95240ebd11d2-profile_image-150x150.png"), data.Video.Owner.ProfileImageURL);
             Assert.IsNotNull(data.Video.ContentTags);
             Assert.AreEqual(0, data.Video.ContentTags.Count());
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_CoreActionsCurrentUserRequest_ShouldReturnData()
+        {
+            // arrange
+            CoreActionsCurrentUserRequest request = new();
+
+            // act
+            CoreActionsCurrentUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.CurrentUser);
+
+            Assert.AreEqual("NowaruAlone", data.CurrentUser.DisplayName);
+            Assert.AreEqual("54475050", data.CurrentUser.Id);
+            Assert.AreEqual("nowarualone", data.CurrentUser.Login);
+            Assert.IsNotNull(data.CurrentUser.Roles);
+            Assert.IsNull(data.CurrentUser.Roles.IsStaff);
+
+            Assert.IsNotNull(data.CurrentUser.Settings);
+            Assert.AreEqual("EN", data.CurrentUser.Settings.PreferredLanguageTag.ToString());
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_RecapTopNav_RecapUserRequest_ShouldReturnData()
+        {
+            // arrange
+            RecapTopNav_RecapUserRequest request = new();
+
+            // act
+            RecapTopNav_RecapUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.CurrentUser);
+
+            Assert.AreEqual("NowaruAlone", data.CurrentUser.DisplayName);
+            Assert.AreEqual("54475050", data.CurrentUser.Id);
+            Assert.AreEqual("nowarualone", data.CurrentUser.Login);
+            Assert.AreEqual(new Uri("https://static-cdn.jtvnw.net/jtv_user_pictures/8d8d23f5-0269-40e7-a537-86fa4bf3e6af-profile_image-70x70.png"), data.CurrentUser.ProfileImageURL);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_TrackingManager_RequestInfoRequest_ShouldReturnData()
+        {
+            // arrange
+            TrackingManager_RequestInfoRequest request = new();
+
+            // act
+            TrackingManager_RequestInfo data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.RequestInfo);
+
+            Assert.AreEqual("RU", data.RequestInfo.CountryCode);
+            Assert.AreEqual("95.55.214.12", data.RequestInfo.IpAddress);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_AnnualRecapRequest_ShouldReturnData()
+        {
+            // arrange
+            AnnualRecapRequest request = new("54475050");
+
+            // act
+            Models.Responses.AnnualRecap data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+
+            Assert.IsNotNull(data.CurrentUser);
+            Assert.AreEqual("NowaruAlone", data.CurrentUser.DisplayName);
+            Assert.AreEqual("54475050", data.CurrentUser.Id);
+            Assert.AreEqual("FFBF00", data.CurrentUser.PrimaryColorHex);
+            Assert.AreEqual(new Uri("https://static-cdn.jtvnw.net/jtv_user_pictures/8d8d23f5-0269-40e7-a537-86fa4bf3e6af-profile_image-300x300.png"), data.CurrentUser.ProfileImageURL);
+
+            //Assert.IsNotNull(data.AnnualRecap);
+            //Assert.IsNotNull(data.AnnualRecap.Creator);
+            //Assert.AreEqual(8272, data.AnnualRecap.Creator.TotalHoursViewersWatched);
+
+            //Assert.IsNotNull(data.AnnualRecap.Viewer);
+
+            //Assert.IsNull(data.AnnualRecap.Error);
         }
 
         #endregion Methods
