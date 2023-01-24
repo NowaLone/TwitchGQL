@@ -133,6 +133,11 @@ namespace TwitchGQL.Client
             return SendQueryAsync<VideoCommentsByOffsetOrCursor>(request, cancellationToken);
         }
 
+        public Task<VideoPlayerStreamInfoOverlayVOD> SendQueryAsync(VideoPlayerStreamInfoOverlayVODRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<VideoPlayerStreamInfoOverlayVOD>(request, cancellationToken);
+        }
+
         #endregion Methods
     }
 }
