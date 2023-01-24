@@ -1,8 +1,6 @@
 ﻿using GraphQL;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -519,6 +517,24 @@ namespace TwitchGQL.Client.Tests
             //Assert.IsNotNull(data.AnnualRecap.Viewer);
 
             //Assert.IsNull(data.AnnualRecap.Error);
+        }
+
+        [TestMethod]
+        public async Task SendQueryAsync_MessageBufferChatHistoryRequest_ShouldReturnData()
+        {
+            // arrange
+            MessageBufferChatHistoryRequest request = new("twitch");
+
+            // act
+            MessageBufferChatHistory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+
+            Assert.IsNotNull(data.Channel);
+            Assert.AreEqual("12826", data.Channel.Id);
+
+            Assert.IsNotNull(data.Channel.RecentChatMessages);
         }
 
         #endregion Methods

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace TwitchGQL.Models.Types
 {
@@ -12,5 +13,11 @@ namespace TwitchGQL.Models.Types
         /// </summary>
         [JsonPropertyName("id")]
         public string Id { get; set; }
+
+        /// <summary>
+        /// Fetches most recent chat messages sent for the given channel.
+        /// </summary>
+        [JsonPropertyName("recentChatMessages")]
+        public IEnumerable<Message> RecentChatMessages { get; set; }
     }
 }
