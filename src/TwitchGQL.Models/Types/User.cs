@@ -111,6 +111,11 @@ namespace TwitchGQL.Models.Types
         public UserSelfConnection Self { get; set; }
 
         /// <summary>
+        /// The settings this user has on Twitch.
+        /// </summary>
+        public UserSettings Settings { get; set; }
+
+        /// <summary>
         /// Tags are used as a discovery and search mechanism for channels. The tag data is from Graffiti directly. Graffiti is not designed to handle huge traffic. Please use <see cref="Stream.Tags"/> instead if know the stream is live and you can accept a 5 min delay in the data. For example, you should use <see cref="Stream.Tags"/> for the channel page and the browse page, but use <see cref="User.Tags"/> for the dashboard.
         /// </summary>
         [JsonPropertyName("tags")]
