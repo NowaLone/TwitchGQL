@@ -36,6 +36,8 @@ namespace TwitchGQL.Client
 
         Task<ChannelPanels> SendQueryAsync(ChannelPanelsRequest request, CancellationToken cancellationToken = default);
 
+        Task<VideoCommentsByOffsetOrCursor> SendQueryAsync(VideoCommentsByOffsetOrCursorRequest request, CancellationToken cancellationToken = default);
+
         #endregion Methods
     }
 }
