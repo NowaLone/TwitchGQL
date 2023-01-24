@@ -11,6 +11,13 @@ namespace TwitchGQL.Models.Types
     public class User
     {
         /// <summary>
+        /// The channel which belongs to the user. This is still deprecated for previous uses.
+        /// This should only be used for the multi-view experience.
+        /// </summary>
+        [JsonPropertyName("channel")]
+        public Channel Channel { get; set; }
+
+        /// <summary>
         /// Hex color of the user's name in chat, e.g. "#ccaa44".
         /// </summary>
         [JsonPropertyName("chatColor")]

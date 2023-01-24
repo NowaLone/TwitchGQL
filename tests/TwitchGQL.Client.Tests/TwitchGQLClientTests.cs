@@ -377,6 +377,37 @@ namespace TwitchGQL.Client.Tests
             Assert.IsNull(data.User.Self.BanStatus);
         }
 
+        [TestMethod]
+        public async Task SendQueryAsync_VideoCommentsByOffsetOrCursorRequest_ShouldReturnData()
+        {
+            // arrange
+            VideoCommentsByOffsetOrCursorRequest request = new("803755667", 0);
+
+            // act
+            VideoCommentsByOffsetOrCursor data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.Video);
+
+            Assert.AreEqual("803755667", data.Video.Id);
+            Assert.AreEqual("12826", data.Video.Creator.Id);
+            Assert.AreEqual("12826", data.Video.Creator.Channel.Id);
+            Assert.IsTrue(data.Video.Comments.PageInfo.HasNextPage);
+            Assert.IsFalse(data.Video.Comments.PageInfo.HasPreviousPage);
+            Assert.IsTrue(data.Video.Comments.Edges.All(e => !string.IsNullOrWhiteSpace(e.Cursor)));
+
+            Assert.IsTrue(data.Video.Comments.Edges.Any(e => e.Node.Id == "j3P7zQ6cRxandQ"));
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Commenter.Id == "227398738");
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Commenter.Login == "corndog829");
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Commenter.DisplayName == "corndog829");
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.ContentOffsetSeconds == 0);
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.CreatedAt == new DateTime(2020, 11, 15, 6, 56, 17, 992, DateTimeKind.Utc));
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Message.Fragments.SingleOrDefault(f => f.Emote == default && f.Text == "gdgfbhfyhghf") != default);
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Message.UserBadges.SingleOrDefault(b => b.Id == "Z2xpdGNoY29uMjAyMDsxOw==" && b.SetID == "glitchcon2020" && b.Version == "1") != default);
+            Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Message.UserColor == "#B22222");
+        }
+
         #endregion Methods
     }
 }
