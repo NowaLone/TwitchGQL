@@ -138,6 +138,26 @@ namespace TwitchGQL.Client
             return SendQueryAsync<VideoPlayerStreamInfoOverlayVOD>(request, cancellationToken);
         }
 
+        public Task<CoreActionsCurrentUser> SendQueryAsync(CoreActionsCurrentUserRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<CoreActionsCurrentUser>(request, cancellationToken);
+        }
+
+        public Task<RecapTopNav_RecapUser> SendQueryAsync(RecapTopNav_RecapUserRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<RecapTopNav_RecapUser>(request, cancellationToken);
+        }
+
+        public Task<AnnualRecap> SendQueryAsync(AnnualRecapRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<AnnualRecap>(request, cancellationToken);
+        }
+
+        public Task<TrackingManager_RequestInfo> SendQueryAsync(TrackingManager_RequestInfoRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<TrackingManager_RequestInfo>(request, cancellationToken);
+        }
+
         #endregion Methods
     }
 }

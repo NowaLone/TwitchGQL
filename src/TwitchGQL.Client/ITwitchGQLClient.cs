@@ -40,6 +40,14 @@ namespace TwitchGQL.Client
 
         Task<VideoPlayerStreamInfoOverlayVOD> SendQueryAsync(VideoPlayerStreamInfoOverlayVODRequest request, CancellationToken cancellationToken = default);
 
+        Task<CoreActionsCurrentUser> SendQueryAsync(CoreActionsCurrentUserRequest request, CancellationToken cancellationToken = default);
+
+        Task<RecapTopNav_RecapUser> SendQueryAsync(RecapTopNav_RecapUserRequest request, CancellationToken cancellationToken = default);
+
+        Task<AnnualRecap> SendQueryAsync(AnnualRecapRequest request, CancellationToken cancellationToken = default);
+
+        Task<TrackingManager_RequestInfo> SendQueryAsync(TrackingManager_RequestInfoRequest request, CancellationToken cancellationToken = default);
+
         #endregion Methods
     }
 }
