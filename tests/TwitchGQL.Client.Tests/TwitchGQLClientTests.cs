@@ -408,6 +408,30 @@ namespace TwitchGQL.Client.Tests
             Assert.IsTrue(data.Video.Comments.Edges.First(e => e.Node.Id == "j3P7zQ6cRxandQ").Node.Message.UserColor == "#B22222");
         }
 
+        [TestMethod]
+        public async Task SendQueryAsync_VideoPlayerStreamInfoOverlayVODRequest_ShouldReturnData()
+        {
+            // arrange
+            VideoPlayerStreamInfoOverlayVODRequest request = new("1622426365", true);
+
+            // act
+            VideoPlayerStreamInfoOverlayVOD data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+            Assert.IsNotNull(data.Video);
+
+            Assert.AreEqual("150942279", data.Video.Id);
+            Assert.AreEqual("EA PLAY LIVE 2017", data.Video.Title);
+            Assert.IsNotNull(data.Video.Owner);
+            Assert.AreEqual("12826", data.Video.Owner.Id);
+            Assert.AreEqual("twitch", data.Video.Owner.Login);
+            Assert.AreEqual("Twitch", data.Video.Owner.DisplayName);
+            Assert.AreEqual(new Uri("https://static-cdn.jtvnw.net/jtv_user_pictures/c2178e3b-acad-4d0a-8f85-95240ebd11d2-profile_image-150x150.png"), data.Video.Owner.ProfileImageURL);
+            Assert.IsNotNull(data.Video.ContentTags);
+            Assert.AreEqual(0, data.Video.ContentTags.Count());
+        }
+
         #endregion Methods
     }
 }
