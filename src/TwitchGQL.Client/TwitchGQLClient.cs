@@ -158,6 +158,11 @@ namespace TwitchGQL.Client
             return SendQueryAsync<TrackingManager_RequestInfo>(request, cancellationToken);
         }
 
+        public Task<MessageBufferChatHistory> SendQueryAsync(MessageBufferChatHistoryRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<MessageBufferChatHistory>(request, cancellationToken);
+        }
+
         #endregion Methods
     }
 }
