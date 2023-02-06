@@ -50,6 +50,8 @@ namespace TwitchGQL.Client
 
         Task<MessageBufferChatHistory> SendQueryAsync(MessageBufferChatHistoryRequest request, CancellationToken cancellationToken = default);
 
+        Task<ChatList_Badges> SendQueryAsync(ChatList_BadgesRequest request, CancellationToken cancellationToken = default);
+
         #endregion Methods
     }
 }
