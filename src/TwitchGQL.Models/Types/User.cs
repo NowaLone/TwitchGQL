@@ -11,6 +11,12 @@ namespace TwitchGQL.Models.Types
     public class User
     {
         /// <summary>
+        /// Badges that are displayed in chat during this user's broacasts or videos.
+        /// </summary>
+        [JsonPropertyName("broadcastBadges")]
+        public IEnumerable<Badge> BroadcastBadges { get; set; }
+
+        /// <summary>
         /// The channel which belongs to the user. This is still deprecated for previous uses.
         /// This should only be used for the multi-view experience.
         /// </summary>

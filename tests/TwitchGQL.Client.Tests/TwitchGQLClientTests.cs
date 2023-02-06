@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging.Debug;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,10 +46,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_Generic_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: "monstercat");
 
-            // act
+            // Act
             Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync<Models.Responses.PlaybackAccessToken>(request).ConfigureAwait(false);
 
             // assert
@@ -61,10 +62,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_Generic_WithWrongRequest_ShouldReturnNull()
         {
-            // arrange
+            // Arrange
             GraphQLRequest request = new();
 
-            // act
+            // Act
             object data = await twitchGQLClient.SendQueryAsync<object>(request).ConfigureAwait(false);
 
             // assert
@@ -74,10 +75,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_PlaybackAccessTokenRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             Models.Requests.Templates.PlaybackAccessTokenRequest request = new(login: "monstercat");
 
-            // act
+            // Act
             Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -90,11 +91,11 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_FollowButton_FollowUserRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             FollowButton_UnfollowUserRequest unfollowRequest = new("12826");
             FollowButton_FollowUserRequest request = new("12826");
 
-            // act
+            // Act
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
             FollowButton_FollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
@@ -117,11 +118,11 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_FollowButton_UnfollowUserRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             FollowButton_FollowUserRequest followRequest = new("12826");
             FollowButton_UnfollowUserRequest request = new("12826");
 
-            // act
+            // Act
             await twitchGQLClient.SendQueryAsync(followRequest).ConfigureAwait(false);
             FollowButton_UnfollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
@@ -142,10 +143,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_DirectoryPage_GameRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             DirectoryPage_GameRequest request = new("music");
 
-            // act
+            // Act
             DirectoryPage_Game data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -200,10 +201,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_DirectoryRoot_DirectoryRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             DirectoryRoot_DirectoryRequest request = new("grand theft auto v");
 
-            // act
+            // Act
             DirectoryRoot_Directory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -216,7 +217,7 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_Directory_DirectoryBannerRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             Directory_DirectoryBannerRequest request = new("Grand Theft Auto V");
             IEnumerable<Tag> tags = new Tag[]
             {
@@ -256,7 +257,7 @@ namespace TwitchGQL.Client.Tests
                     TagName="Open World"
                 },
             };
-            // act
+            // Act
             Directory_DirectoryBanner data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -295,7 +296,7 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_ChannelPanelsRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             ChannelPanelsRequest request = new("12826");
             IEnumerable<IPanel> panels = new IPanel[]
             {
@@ -352,7 +353,7 @@ namespace TwitchGQL.Client.Tests
                 }
             };
 
-            // act
+            // Act
             ChannelPanels data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -381,10 +382,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_VideoCommentsByOffsetOrCursorRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             VideoCommentsByOffsetOrCursorRequest request = new("803755667", 0);
 
-            // act
+            // Act
             VideoCommentsByOffsetOrCursor data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -412,10 +413,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_VideoPlayerStreamInfoOverlayVODRequest_ShouldReturnData()
         {
-            // arrange
-            VideoPlayerStreamInfoOverlayVODRequest request = new("1622426365", true);
+            // Arrange
+            VideoPlayerStreamInfoOverlayVODRequest request = new("150942279", true);
 
-            // act
+            // Act
             VideoPlayerStreamInfoOverlayVOD data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -436,10 +437,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_CoreActionsCurrentUserRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             CoreActionsCurrentUserRequest request = new();
 
-            // act
+            // Act
             CoreActionsCurrentUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -459,10 +460,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_RecapTopNav_RecapUserRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             RecapTopNav_RecapUserRequest request = new();
 
-            // act
+            // Act
             RecapTopNav_RecapUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -478,10 +479,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_TrackingManager_RequestInfoRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             TrackingManager_RequestInfoRequest request = new();
 
-            // act
+            // Act
             TrackingManager_RequestInfo data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -495,10 +496,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_AnnualRecapRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             AnnualRecapRequest request = new("54475050");
 
-            // act
+            // Act
             Models.Responses.AnnualRecap data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -522,10 +523,10 @@ namespace TwitchGQL.Client.Tests
         [TestMethod]
         public async Task SendQueryAsync_MessageBufferChatHistoryRequest_ShouldReturnData()
         {
-            // arrange
+            // Arrange
             MessageBufferChatHistoryRequest request = new("twitch");
 
-            // act
+            // Act
             MessageBufferChatHistory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
             // assert
@@ -535,6 +536,32 @@ namespace TwitchGQL.Client.Tests
             Assert.AreEqual("12826", data.Channel.Id);
 
             Assert.IsNotNull(data.Channel.RecentChatMessages);
+        }
+
+
+        [TestMethod]
+        public async Task SendQueryAsync_ChatList_BadgesRequest_ShouldReturnData()
+        {
+            // Arrange
+            ChatList_BadgesRequest request = new("twitch");
+
+            // Act
+            ChatList_Badges data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // assert
+            Assert.IsNotNull(data);
+
+            Assert.IsNotNull(data.Badges);
+            Assert.AreEqual(215, data.Badges.Count());
+            CollectionAssert.AllItemsAreNotNull((ICollection)data.Badges);
+
+            Assert.IsNotNull(data.User);
+            Assert.AreEqual("12826", data.User.Id);
+            Assert.IsNull(data.User.PrimaryColorHex);
+            Assert.AreEqual(3,data.User.BroadcastBadges.Count());
+            CollectionAssert.AllItemsAreNotNull((ICollection)data.User.BroadcastBadges);
+            Assert.IsNotNull(data.User.Self);
+
         }
 
         #endregion Methods
