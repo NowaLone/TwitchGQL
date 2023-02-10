@@ -168,6 +168,11 @@ namespace TwitchGQL.Client
             return SendQueryAsync<ChatList_Badges>(request, cancellationToken);
         }
 
+        public Task<GetUserID> SendQueryAsync(GetUserIDRequest request, CancellationToken cancellationToken = default)
+        {
+            return SendQueryAsync<GetUserID>(request, cancellationToken);
+        }
+
         #endregion Methods
     }
 }
