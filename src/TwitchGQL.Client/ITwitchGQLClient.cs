@@ -52,6 +52,8 @@ namespace TwitchGQL.Client
 
         Task<ChatList_Badges> SendQueryAsync(ChatList_BadgesRequest request, CancellationToken cancellationToken = default);
 
+        Task<GetUserID> SendQueryAsync(GetUserIDRequest request, CancellationToken cancellationToken = default);
+
         #endregion Methods
     }
 }

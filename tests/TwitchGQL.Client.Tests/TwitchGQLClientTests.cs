@@ -52,7 +52,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync<Models.Responses.PlaybackAccessToken>(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.StreamPlaybackAccessToken);
             Assert.IsFalse(string.IsNullOrWhiteSpace(data.StreamPlaybackAccessToken.Value));
@@ -68,7 +68,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             object data = await twitchGQLClient.SendQueryAsync<object>(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNull(data);
         }
 
@@ -81,7 +81,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             Models.Responses.PlaybackAccessToken data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.StreamPlaybackAccessToken);
             Assert.IsFalse(string.IsNullOrWhiteSpace(data.StreamPlaybackAccessToken.Value));
@@ -99,7 +99,7 @@ namespace TwitchGQL.Client.Tests
             await twitchGQLClient.SendQueryAsync(unfollowRequest).ConfigureAwait(false);
             FollowButton_FollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.FollowUser);
             Assert.IsNull(data.FollowUser.Error);
@@ -126,7 +126,7 @@ namespace TwitchGQL.Client.Tests
             await twitchGQLClient.SendQueryAsync(followRequest).ConfigureAwait(false);
             FollowButton_UnfollowUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.UnfollowUser);
             Assert.IsNotNull(data.UnfollowUser.Follow);
@@ -149,7 +149,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             DirectoryPage_Game data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Game);
             Assert.AreEqual("Music", data.Game.DisplayName);
@@ -207,7 +207,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             DirectoryRoot_Directory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Game);
             Assert.AreEqual("Grand Theft Auto V", data.Game.DisplayName);
@@ -260,7 +260,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             Directory_DirectoryBanner data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Game);
             Assert.IsNotNull(data.CurrentUser);
@@ -356,7 +356,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             ChannelPanels data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.CurrentUser);
             Assert.IsNotNull(data.User);
@@ -388,7 +388,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             VideoCommentsByOffsetOrCursor data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Video);
 
@@ -419,7 +419,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             VideoPlayerStreamInfoOverlayVOD data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.Video);
 
@@ -443,7 +443,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             CoreActionsCurrentUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.CurrentUser);
 
@@ -466,7 +466,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             RecapTopNav_RecapUser data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.CurrentUser);
 
@@ -485,7 +485,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             TrackingManager_RequestInfo data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
             Assert.IsNotNull(data.RequestInfo);
 
@@ -502,7 +502,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             Models.Responses.AnnualRecap data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
 
             Assert.IsNotNull(data.CurrentUser);
@@ -529,7 +529,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             MessageBufferChatHistory data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
 
             Assert.IsNotNull(data.Channel);
@@ -537,7 +537,6 @@ namespace TwitchGQL.Client.Tests
 
             Assert.IsNotNull(data.Channel.RecentChatMessages);
         }
-
 
         [TestMethod]
         public async Task SendQueryAsync_ChatList_BadgesRequest_ShouldReturnData()
@@ -548,7 +547,7 @@ namespace TwitchGQL.Client.Tests
             // Act
             ChatList_Badges data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
 
-            // assert
+            // Assert
             Assert.IsNotNull(data);
 
             Assert.IsNotNull(data.Badges);
@@ -558,12 +557,78 @@ namespace TwitchGQL.Client.Tests
             Assert.IsNotNull(data.User);
             Assert.AreEqual("12826", data.User.Id);
             Assert.IsNull(data.User.PrimaryColorHex);
-            Assert.AreEqual(3,data.User.BroadcastBadges.Count());
+            Assert.AreEqual(3, data.User.BroadcastBadges.Count());
             CollectionAssert.AllItemsAreNotNull((ICollection)data.User.BroadcastBadges);
             Assert.IsNotNull(data.User.Self);
+        }
 
+        [DataTestMethod]
+        [DynamicData(nameof(GetUserIDRequestTestData))]
+        public async Task SendQueryAsync_GetUserIDRequest_ShouldReturnData(string login, UserLookupType lookupType, GetUserID expected)
+        {
+            // Arrange
+            GetUserIDRequest request = new(login, lookupType);
+
+            // Act
+            GetUserID data = await twitchGQLClient.SendQueryAsync(request).ConfigureAwait(false);
+
+            // Assert
+            Assert.IsNotNull(data);
+            Assert.AreEqual(expected.User?.Id, data.User?.Id);
         }
 
         #endregion Methods
+
+        private static IEnumerable<object[]> GetUserIDRequestTestData
+        {
+            get
+            {
+                return new[]
+                {
+                    new object[]
+                    {
+                        "twitch",
+                        UserLookupType.ACTIVE,
+                        new GetUserID
+                        {
+                            User = new User
+                            {
+                                Id = "12826"
+                            }
+                        }
+                    },
+                    new object[]
+                    {
+                        "twitch",
+                        UserLookupType.ALL,
+                        new GetUserID
+                        {
+                            User = new User
+                            {
+                                Id = "12826"
+                            }
+                        }
+                    },
+                    new object[]
+                    {
+                        "drdisrespect",
+                        UserLookupType.ACTIVE,
+                        new GetUserID()
+                    },
+                    new object[]
+                    {
+                        "drdisrespect",
+                        UserLookupType.ALL,
+                        new GetUserID
+                        {
+                            User = new User
+                            {
+                                Id = "17337557"
+                            }
+                        }
+                    }
+                };
+            }
+        }
     }
 }
