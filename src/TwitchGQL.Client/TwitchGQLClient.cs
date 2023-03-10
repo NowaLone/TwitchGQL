@@ -66,6 +66,7 @@ namespace TwitchGQL.Client
             {
                 o.Converters.Add(new JsonStringEnumConverter(new UppercaseJsonNamingPolicy()));
                 o.Converters.Add(new PanelConverter());
+                o.Converters.Add(new FragmentContentConverter());
             };
         }
 
